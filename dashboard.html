@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Chamados</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <h1>Gerenciador de Chamados</h1>
+        <div>
+            <span id="user-display">Usuário</span>
+            <button onclick="logout()" class="btn-danger">Sair</button>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="actions-bar">
+            <button onclick="abrirModalCriar()">+ Novo Chamado</button>
+            
+            <div class="filters">
+                <select id="filtro-status" onchange="aplicarFiltros()">
+                    <option value="TODOS">Todos os Status</option>
+                    <option value="ABERTO">Aberto</option>
+                    <option value="EM_ANDAMENTO">Em Andamento</option>
+                    <option value="RESOLVIDO">Resolvido</option>
+                </select>
+
+                <select id="filtro-prioridade" onchange="aplicarFiltros()">
+                    <option value="TODOS">Todas Prioridades</option>
+                    <option value="BAIXA">Baixa</option>
+                    <option value="MEDIA">Média</option>
+                    <option value="ALTA">Alta</option>
+                    <option value="CRITICA">Crítica</option>
+                </select>
+            </div>
+        </div>
+
+        <h2 id="titulo-ativos">Chamados em Aberto</h2>
+        <div id="lista-ativos" class="cards-container">
+            </div>
+
+        <h2 class="titulo-resolvidos">Chamados Resolvidos</h2>
+        <div id="lista-resolvidos" class="cards-container resolvidos-container">
+            </div>
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModal()">&times;</span>
+            <h2 id="modal-titulo">Novo Chamado</h2>
+            <input type="hidden" id="chamado-id">
+            
+            <label>Título:</label>
+            <input type="text" id="novo-titulo">
+            
+            <label>Descrição:</label>
+            <textarea id="novo-descricao" rows="4"></textarea>
+            
+            <label>Prioridade:</label>
+            <select id="novo-prioridade">
+                <option value="BAIXA">Baixa</option>
+                <option value="MEDIA">Média</option>
+                <option value="ALTA">Alta</option>
+                <option value="CRITICA">Crítica</option>
+            </select>
+
+            <div id="div-status" class="hidden">
+                <label>Status (Apenas Edição):</label>
+                <select id="novo-status">
+                     <option value="ABERTO">Aberto</option>
+                    <option value="EM_ANDAMENTO">Em Andamento</option>
+                    <option value="RESOLVIDO">Resolvido</option>
+                </select>
+            </div>
+
+            <button onclick="salvarChamado()" style="margin-top: 15px;">Salvar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function fecharModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        verificarAutenticacao();
+        carregarChamados();
+    </script>
+</body>
+</html>

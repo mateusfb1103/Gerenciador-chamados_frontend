@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Gerenciador de Chamados</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="login-form" class="auth-box">
+            <h2>Entrar</h2>
+            <input type="email" id="login-email" placeholder="Email">
+            <input type="password" id="login-senha" placeholder="Senha">
+            <button onclick="fazerLogin()">Entrar</button>
+            <p>Não tem conta? <a href="#" onclick="alternarForm()">Cadastre-se</a></p>
+        </div>
+
+        <div id="register-form" class="auth-box hidden">
+            <h2>Criar Conta</h2>
+            <input type="text" id="reg-nome" placeholder="Nome completo">
+            <input type="email" id="reg-email" placeholder="Email">
+            <input type="password" id="reg-senha" placeholder="Senha">
+            <button onclick="fazerCadastro()">Cadastrar</button>
+            <p>Já tem conta? <a href="#" onclick="alternarForm()">Fazer Login</a></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@ function parseJwt(token) {
     try {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
         return JSON.parse(jsonPayload);
@@ -95,10 +95,10 @@ function logout() {
 async function carregarChamados() {
     const token = localStorage.getItem('token');
     const user = parseJwt(token);
-    
+
     let url;
     if (user.role === 'ROLE_SUPPORT') {
-        url = `${API_URL}/chamados`; 
+        url = `${API_URL}/chamados`;
         document.getElementById('titulo-ativos').innerText = "Todos os Chamados em Aberto";
     } else {
         url = `${API_URL}/chamados/${user.id}`;
@@ -145,7 +145,7 @@ function renderizarListaNoContainer(lista, containerId) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
 
-    if(lista.length === 0) {
+    if (lista.length === 0) {
         container.innerHTML = '<p style="color:#777; font-style:italic">Nenhum chamado nesta lista.</p>';
         return;
     }
@@ -156,9 +156,9 @@ function renderizarListaNoContainer(lista, containerId) {
     lista.forEach(chamado => {
         const card = document.createElement('div');
         card.className = `card prio-${chamado.prioridade}`;
-        
-        const infoUsuario = user.role === 'ROLE_SUPPORT' 
-            ? `<small><b>Usuário:</b> ${chamado.usuarioEmail}</small>` 
+
+        const infoUsuario = user.role === 'ROLE_SUPPORT'
+            ? `<small><b>Usuário:</b> ${chamado.usuarioEmail}</small>`
             : '';
 
         let botoesHtml = '';
@@ -191,9 +191,9 @@ function abrirModalCriar() {
     document.getElementById('novo-titulo').value = "";
     document.getElementById('novo-descricao').value = "";
     document.getElementById('novo-prioridade').value = "BAIXA";
-    
-    document.getElementById('div-status').classList.add('hidden'); 
-    
+
+    document.getElementById('div-status').classList.add('hidden');
+
     document.getElementById('modal').classList.remove('hidden');
 }
 
@@ -203,7 +203,7 @@ function abrirModalEditar(chamado) {
     document.getElementById('novo-titulo').value = chamado.titulo;
     document.getElementById('novo-descricao').value = chamado.descricao;
     document.getElementById('novo-prioridade').value = chamado.prioridade;
-    
+
     document.getElementById('div-status').classList.remove('hidden');
     document.getElementById('novo-status').value = chamado.status;
 
@@ -212,14 +212,14 @@ function abrirModalEditar(chamado) {
 
 function fecharModal() {
     const modal = document.getElementById('modal');
-    modal.classList.add('hidden'); 
+    modal.classList.add('hidden');
 }
 
 async function salvarChamado() {
     const titulo = document.getElementById('novo-titulo').value;
     const descricao = document.getElementById('novo-descricao').value;
     const prioridade = document.getElementById('novo-prioridade').value;
-    
+
     const token = localStorage.getItem('token');
     const user = parseJwt(token);
 
@@ -235,7 +235,7 @@ async function salvarChamado() {
 
     } else {
         const body = { titulo, descricao, prioridade };
-        
+
         await fetch(`${API_URL}/chamados/${user.id}`, {
             method: 'POST',
             headers: getHeaders(),
@@ -257,7 +257,7 @@ async function deletarChamado(id) {
     }
 }
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById('modal');
     if (event.target == modal) {
         fecharModal();
